@@ -195,4 +195,14 @@ class FeedMeService extends BaseApplicationComponent
             }
         }
     }
+
+    public function getTimeOffset($d)
+    {
+        // Load local and UTC timezone
+        $tzCurrent = new \DateTimeZone(craft()->timezone);
+        $tzUTC = new \DateTimeZone('UTC');
+
+        // return the offset that should be added to the datestring
+        return $tzCurrent->getOffset(new \DateTime('now', $tzUTC)) - (!empty($d['zone']) ? -1 * $d['zone'] * 60 : 0);
+    }
 }

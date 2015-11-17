@@ -75,7 +75,7 @@ class FeedMe_EntryService extends BaseApplicationComponent
         $postDate = FeedMe_Element::PostDate;
         if (isset($fields[$postDate])) {
             $d = date_parse($fields[$postDate]);
-            $date_string = date('Y-m-d H:i:s', mktime($d['hour'], $d['minute'], $d['second'], $d['month'], $d['day'], $d['year']));
+            $date_string = date('Y-m-d H:i:s', mktime($d['hour'], $d['minute'], $d['second'], $d['month'], $d['day'], $d['year']) + craft()->feedMe->getTimeOffset($d));
 
             $element->$postDate = DateTime::createFromString($date_string, craft()->timezone);
             //unset($fields[$postDate]);
@@ -85,7 +85,7 @@ class FeedMe_EntryService extends BaseApplicationComponent
         $expiryDate = FeedMe_Element::ExpiryDate;
         if (isset($fields[$expiryDate])) {
             $d = date_parse($fields[$expiryDate]);
-            $date_string = date('Y-m-d H:i:s', mktime($d['hour'], $d['minute'], $d['second'], $d['month'], $d['day'], $d['year']));
+            $date_string = date('Y-m-d H:i:s', mktime($d['hour'], $d['minute'], $d['second'], $d['month'], $d['day'], $d['year']) + craft()->feedMe->getTimeOffset($d));
             
             $element->$expiryDate = DateTime::createFromString($date_string, craft()->timezone);
             //unset($fields[$expiryDate]);
